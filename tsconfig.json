@@ -1,10 +1,15 @@
 {
   "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
+  "module": "esnext",
+  "baseUrl": "./src",    
+  "paths": {
       "*": ["src/*"],
-      "@components/*": ["src/components/*"],
+      "@api": ["api/index.ts"],
+      "@shared/assets/*": ["shared/assets/*"],
+      "@shared/components": ["shared/components/index.ts"],
+      "@features/forecast": ["features/forecast/index.ts"],
+      "@navigation/constants": ["navigation/constants/index.ts"],
     },
   }
 }

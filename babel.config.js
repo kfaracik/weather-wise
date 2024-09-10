@@ -7,10 +7,13 @@ module.exports = {
         root: ['./src'],
         extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
         alias: {
-          tests: ['./tests/'],
-          "@components": "./src/components",
-        }
-      }
-    ]
-  ]
-}
+          '@shared/assets': './src/shared/assets',
+          '@shared/components': './src/shared/components/index.ts',
+          '@features/forecast': './src/features/forecast/index.ts',
+          '@api': './src/api/index.ts',
+          '@navigation/constants': './src/navigation/constants/index.ts',
+        },
+      },
+    ],
+  ],
+};

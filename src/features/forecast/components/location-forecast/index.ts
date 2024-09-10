@@ -1,0 +1,1 @@
+export { LocationForecast } from './LocationForecast';
