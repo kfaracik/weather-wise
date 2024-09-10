@@ -1,39 +1,34 @@
 import React, {useCallback, useState} from 'react';
 import {
-  ActivityIndicator,
-  ImageBackground,
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
-  KeyboardAvoidingView,
-  Platform,
   Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native';
-import backgroundImageSource from '@shared/assets/images/bg.webp';
 import {Divider, TextInput, TouchableRipple} from 'react-native-paper';
-import {LocationForecast, FavoritesList} from '../components';
+import {LoaderItem, LocationCurrentWeather} from '../components';
 import {debounce} from 'lodash';
 import {
-  type CityName,
   fetchLocation,
-  fetchWeatherForecast,
-  Location,
+  fetchCurrentWeather,
+  type Location,
+  type CurrentWeatherResponse,
 } from '../api';
-import {WeatherResponse} from '../api/forecastService';
+import {ScreenContainer} from '@shared/components';
 
 export const LocationSearchScreen = () => {
   const [locations, setLocations] = useState<Location[]>([]);
   const [inputFocus, setInputFocus] = useState(false);
   const [inputTextValue, setInputTextValue] = useState('');
   const [selectedLocationForecast, setSelectedLocationForecast] =
-    useState<WeatherResponse>();
+    useState<CurrentWeatherResponse>();
   const [loading, setLoading] = useState(false);
 
   const handleLocation = async (location: Location) => {
     setLoading(true);
     try {
-      const data = await fetchWeatherForecast({
+      const data = await fetchCurrentWeather({
         lat: location.lat,
         lon: location.lon,
       });
@@ -48,7 +43,7 @@ export const LocationSearchScreen = () => {
     Keyboard.dismiss();
   };
 
-  const handleLocationSearch = async (cityName: CityName) => {
+  const handleLocationSearch = async (cityName: string) => {
     setLoading(true);
     try {
       const data = await fetchLocation({cityName});
@@ -65,61 +60,59 @@ export const LocationSearchScreen = () => {
     [],
   );
 
-  const onChangeText = (cityName: CityName) => {
+  const onChangeText = (cityName: string) => {
     handleTextDebounce(cityName);
     setInputTextValue(cityName);
   };
 
   return (
-    <ImageBackground
-      blurRadius={16}
-      source={backgroundImageSource}
-      style={styles.backgroundImage}>
-      <SafeAreaView style={styles.safeArea}>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          style={styles.container}>
-          <View style={styles.contentContainer}>
-            <View style={styles.searchContainer}>
-              <TextInput
-                mode="outlined"
-                placeholder="Search city"
-                value={inputTextValue}
-                outlineStyle={styles.searchInput}
-                onChangeText={onChangeText}
-                onFocus={() => setInputFocus(true)}
-                onBlur={() => setInputFocus(false)}
-                style={styles.textInput}
-              />
-              {loading ? (
-                <ActivityIndicator size="large" color="#0000ff" />
-              ) : locations?.length > 0 && inputFocus ? (
-                <View style={styles.resultsContainer}>
-                  {locations.map((location, id) => (
-                    <View key={id}>
-                      <TouchableRipple
-                        style={styles.itemStyle}
-                        onPress={() => handleLocation(location)}>
-                        <Text style={styles.text}>
-                          {location.name}, {location.state}
-                        </Text>
-                      </TouchableRipple>
-                      {id < locations?.length - 1 && <Divider />}
-                    </View>
-                  ))}
-                </View>
-              ) : null}
-            </View>
-            {selectedLocationForecast ? (
-              <LocationForecast locationForecast={selectedLocationForecast} />
-            ) : !loading ? (
-              <Text style={styles.text}>Check the weather for a city</Text>
+    <ScreenContainer>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.contentContainer}>
+          <View style={styles.searchContainer}>
+            <TextInput
+              mode="outlined"
+              placeholder="Search city"
+              value={inputTextValue}
+              outlineStyle={styles.searchInput}
+              onChangeText={onChangeText}
+              onFocus={() => setInputFocus(true)}
+              onBlur={() => setInputFocus(false)}
+              style={styles.textInput}
+            />
+            {loading && inputTextValue.length > 0 ? (
+              <View style={styles.resultsContainer}>
+                <LoaderItem />
+              </View>
+            ) : locations.length > 0 && inputFocus ? (
+              <View style={styles.resultsContainer}>
+                {locations.map((location, id) => (
+                  <View key={id}>
+                    <TouchableRipple
+                      style={styles.itemStyle}
+                      onPress={() => handleLocation(location)}>
+                      <Text style={styles.text}>
+                        {location.name}, {location.state}, {location.country}
+                      </Text>
+                    </TouchableRipple>
+                    {id < locations.length - 1 && <Divider />}
+                  </View>
+                ))}
+              </View>
             ) : null}
-            <FavoritesList />
           </View>
-        </KeyboardAvoidingView>
-      </SafeAreaView>
-    </ImageBackground>
+          {selectedLocationForecast ? (
+            <LocationCurrentWeather
+              locationForecast={selectedLocationForecast}
+            />
+          ) : !loading ? (
+            <Text style={styles.emptyScreenText}>
+              Check the weather for a city
+            </Text>
+          ) : null}
+        </View>
+      </TouchableWithoutFeedback>
+    </ScreenContainer>
   );
 };
 
@@ -140,6 +133,10 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
+  },
+  emptyScreenText: {
+    fontSize: 16,
+    color: 'lightgray',
   },
   contentContainer: {
     flex: 1,

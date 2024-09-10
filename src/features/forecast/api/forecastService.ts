@@ -1,69 +1,28 @@
 import {apiCall} from './api';
 import {
-  forecastEndpoint,
-  type Forecast,
+  currentWeatherEndpoint,
   getLocationEndpoint,
-  type GetLocation,
+  forecastEndpoint,
 } from './endpoints';
-
-export type CityName = string;
-
-export type Location = {
-  country: string;
-  lat: number;
-  lon: number;
-  name: string;
-  state?: string;
-  local_names?: Record<string, string>;
-};
-
-export type WeatherResponse = {
-  coord: {
-    lon: number;
-    lat: number;
-  };
-  weather: {
-    id: number;
-    main: string;
-    description: string;
-    icon: string;
-  }[];
-  main: {
-    temp: number;
-    temp_min: number;
-    temp_max: number;
-    pressure: number;
-    humidity: number;
-  };
-  visibility: number;
-  wind: {
-    speed: number;
-  };
-  clouds: {
-    all: number;
-  };
-  dt: number;
-  sys: {
-    country: string;
-    sunrise: number;
-    sunset: number;
-  };
-  timezone: number;
-  id: number;
-  name: string;
-  cod: number;
-};
+import type { CityName, CurrentWeatherResponse, Location, LocationCord, WeatherForecastResponse } from './types';
 
 export const fetchLocation = async (
-  params: GetLocation,
+  params: CityName,
 ): Promise<Location[]> => {
   const response = await apiCall(getLocationEndpoint(params));
   return response as Location[];
 };
 
+export const fetchCurrentWeather = async (
+  params: LocationCord,
+): Promise<CurrentWeatherResponse> => {
+  const response = await apiCall(currentWeatherEndpoint(params));
+  return response as CurrentWeatherResponse;
+};
+
 export const fetchWeatherForecast = async (
-  params: Forecast,
-): Promise<WeatherResponse> => {
+  params: LocationCord,
+): Promise<WeatherForecastResponse> => {
   const response = await apiCall(forecastEndpoint(params));
-  return response as WeatherResponse;
+  return response as WeatherForecastResponse;
 };

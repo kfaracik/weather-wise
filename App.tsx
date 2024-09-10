@@ -1,11 +1,11 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {ForecastNavigator} from './src/navigation/ForecastNavigator';
+import {BottomTabNavigator} from './src/navigation/navigators';
 
 const App = () => {
   return (
     <NavigationContainer>
-      <ForecastNavigator />
+      <BottomTabNavigator />
     </NavigationContainer>
   );
 };

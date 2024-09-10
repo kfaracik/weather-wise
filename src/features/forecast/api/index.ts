@@ -1,7 +1,10 @@
 export {
   fetchLocation,
+  fetchCurrentWeather,
   fetchWeatherForecast,
-  type CityName,
-  type Location,
-  type WeatherResponse,
 } from './forecastService';
+export {
+  type Location,
+  type LocationCord,
+  type CurrentWeatherResponse,
+} from './types';

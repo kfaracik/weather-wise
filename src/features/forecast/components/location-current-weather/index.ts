@@ -1,0 +1,1 @@
+export { LocationCurrentWeather } from './LocationCurrentWeather';

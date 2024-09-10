@@ -1,16 +1,11 @@
 import {apiKey, baseUrl} from '@api';
-export type Forecast = {
-  lat: number;
-  lon: number;
-};
+import type { CityName, LocationCord } from './types';
 
-export type GetLocation = {
-  cityName: string;
-  limit?: number;
-};
+export const forecastEndpoint = ({lat, lon}: LocationCord) =>
+  `${baseUrl}/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
 
-export const forecastEndpoint = ({lat, lon}: Forecast) =>
-  `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+export const currentWeatherEndpoint = ({lat, lon}: LocationCord) =>
+  `${baseUrl}/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
 
-export const getLocationEndpoint = ({cityName, limit = 5}: GetLocation) =>
-  `${baseUrl}/geo/1.0/direct?q=${cityName}&limit=${limit}&appid=${apiKey}`;
+export const getLocationEndpoint = ({cityName}: CityName) =>
+  `${baseUrl}/geo/1.0/direct?q=${cityName}&appid=${apiKey}`;

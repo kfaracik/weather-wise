@@ -1,2 +1,2 @@
-export {LocationForecast} from './location-forecast';
-export {FavoritesList} from './favorite-locations';
+export {LocationCurrentWeather} from './location-current-weather';
+export {LoaderItem} from './loader-item';
