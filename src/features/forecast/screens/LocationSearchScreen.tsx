@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import backgroundImageSource from '@shared/assets/images/bg.webp';
 import {Divider, TextInput, TouchableRipple} from 'react-native-paper';
-import {LocationForecast} from '../components';
+import {LocationForecast, FavoritesList} from '../components';
 import {debounce} from 'lodash';
 import {
   type CityName,
@@ -115,6 +115,7 @@ export const LocationSearchScreen = () => {
             ) : !loading ? (
               <Text style={styles.text}>Check the weather for a city</Text>
             ) : null}
+            <FavoritesList />
           </View>
         </KeyboardAvoidingView>
       </SafeAreaView>

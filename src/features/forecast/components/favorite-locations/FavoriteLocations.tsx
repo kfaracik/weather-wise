@@ -7,15 +7,23 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {CompositeScreenProps, useNavigation} from '@react-navigation/native';
 import {City, getFavorites} from '../../store';
 import {Screens} from '@navigation/constants';
+import {fetchWeatherForecast, type WeatherResponse} from '../../api';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import { type ForecastStackParamList } from '../../../../navigation/ForecastNavigator';
 
 const {height: screenHeight} = Dimensions.get('window');
 
+type FavoritesListNavigationProp = NativeStackScreenProps<
+  ForecastStackParamList,
+  Screens["LocationForecastDetails"]
+>['navigation'];
+
 export const FavoritesList = () => {
   const [favorites, setFavorites] = useState<City[]>([]);
-  const navigation = useNavigation();
+  const navigation = useNavigation<FavoritesListNavigationProp>();
 
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -25,8 +33,22 @@ export const FavoritesList = () => {
     fetchFavorites();
   }, []);
 
-  const handlePress = (city: City) => {
+  const handlePress = async (city: City) => {
+    try {
+      const locationForecast: WeatherResponse = await fetchWeatherForecast({
+        lat: city.lat,
+        lon: city.lon,
+      });
 
+    //   console.log({data});
+
+      navigation.navigate(Screens.LocationForecastDetails, {
+        locationForecast,
+      });
+    } catch (error) {
+      console.error('Error fetching weather forecast:', error);
+    } finally {
+    }
   };
 
   const renderItem = ({item}: {item: City}) => (
@@ -53,7 +75,7 @@ export const FavoritesList = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    maxHeight: screenHeight * 0.5, // Set the max height to 50% of screen height
+    maxHeight: screenHeight * 0.5,
     padding: 16,
     borderRadius: 16,
     backgroundColor: 'rgba(255, 255, 255, 0.4)',
