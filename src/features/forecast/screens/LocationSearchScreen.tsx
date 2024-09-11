@@ -1,12 +1,11 @@
 import React, {useCallback, useState} from 'react';
 import {
   StyleSheet,
-  Text,
   View,
   Keyboard,
   TouchableWithoutFeedback,
 } from 'react-native';
-import {Divider, TextInput, TouchableRipple} from 'react-native-paper';
+import {Divider, Text, TextInput, TouchableRipple} from 'react-native-paper';
 import {LoaderItem, LocationCurrentWeather} from '../components';
 import {debounce} from 'lodash';
 import {

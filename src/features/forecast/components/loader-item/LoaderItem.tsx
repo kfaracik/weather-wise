@@ -1,7 +1,7 @@
 import {AnimatedViewBasic} from '@shared/components';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {ActivityIndicator} from 'react-native-paper';
+import {StyleSheet} from 'react-native';
+import {ActivityIndicator, Text} from 'react-native-paper';
 
 export const LoaderItem = () => {
   return (

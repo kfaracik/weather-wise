@@ -1,13 +1,14 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
+import {StyleSheet, View, Image} from 'react-native';
+import {Text} from 'react-native-paper';
 
-  Image,
-} from 'react-native';
-
-export const DetailItem = ({iconSource, label}: {iconSource: any; label: string}) => (
+export const DetailItem = ({
+  iconSource,
+  label,
+}: {
+  iconSource: any;
+  label: string;
+}) => (
   <View style={styles.detailItem}>
     <Image source={iconSource} style={styles.icon} />
     <Text>{label}</Text>
