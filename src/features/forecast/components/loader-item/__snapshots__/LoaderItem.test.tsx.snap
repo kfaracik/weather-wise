@@ -2,33 +2,7 @@
 
 exports[`LocationSearchScreen should generate snapshot 1`] = `
 <View
-  collapsable={false}
-  entering={
-    FadeIn {
-      "build": [Function],
-      "callbackV": undefined,
-      "dampingRatioV": undefined,
-      "dampingV": undefined,
-      "delayV": undefined,
-      "durationV": 200,
-      "easingV": undefined,
-      "initialValues": undefined,
-      "massV": undefined,
-      "overshootClampingV": undefined,
-      "randomizeDelay": false,
-      "reduceMotionV": "system",
-      "restDisplacementThresholdV": undefined,
-      "restSpeedThresholdV": undefined,
-      "rotateV": undefined,
-      "stiffnessV": undefined,
-      "type": undefined,
-    }
-  }
-  jestAnimatedStyle={
-    {
-      "value": {},
-    }
-  }
+  entering={BaseAnimationMock {}}
   style={
     {
       "alignItems": "center",
