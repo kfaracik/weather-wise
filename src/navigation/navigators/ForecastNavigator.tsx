@@ -3,7 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Screens} from '../constants';
 import {
   LocationSearchScreen,
-  LocationsForecastDetailsScreen,
+  LocationForecastDetailsScreen,
   type LocationCord,
 } from '@features/forecast';
 
@@ -20,11 +20,11 @@ export const ForecastNavigator = () => {
       <Stack.Screen
         name={Screens.LocationForecast}
         component={LocationSearchScreen}
-        options={{title: 'Forecast', headerShown: false,}}
+        options={{title: 'Forecast', headerShown: false}}
       />
       <Stack.Screen
         name={Screens.LocationForecastDetails}
-        component={LocationsForecastDetailsScreen}
+        component={LocationForecastDetailsScreen}
         options={{title: 'Location Details'}}
       />
     </Stack.Navigator>

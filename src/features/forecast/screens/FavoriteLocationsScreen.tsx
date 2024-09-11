@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     margin: 16,
     padding: 16,
     borderRadius: 16,
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
   },
   title: {
     fontSize: 24,
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 8,
     borderRadius: 8,
-    backgroundColor: 'rgba(128, 128, 128, 0.5)',
+    backgroundColor: 'rgba(128, 128, 128, 0.25)',
     elevation: 0,
   },
   item: {
