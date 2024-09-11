@@ -3,7 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Screens} from '../constants';
 import {
   LocationCord,
-  LocationsForecastDetailsScreen,
+  LocationForecastDetailsScreen,
   FavoriteLocationsScreen,
 } from '@features/forecast';
 
@@ -24,7 +24,7 @@ export const FavoriteLocationsNavigator = () => {
       />
       <Stack.Screen
         name={Screens.LocationForecastDetails}
-        component={LocationsForecastDetailsScreen}
+        component={LocationForecastDetailsScreen}
         options={{title: 'Location Details'}}
       />
     </Stack.Navigator>

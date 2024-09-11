@@ -11,16 +11,16 @@ export const BottomTabNavigator = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: 'black',
-        tabBarInactiveTintColor: 'gray',
-        tabBarLabelStyle: {
-          fontSize: 16,
-          fontWeight: 'bold',
-        },
-        tabBarStyle: {
-          height: 70,
-          backgroundColor: '#aaa',
-        },
+        // tabBarActiveTintColor: 'black',
+        // tabBarInactiveTintColor: 'gray',
+        // tabBarLabelStyle: {
+        //   fontSize: 16,
+        //   fontWeight: 'bold',
+        // },
+        // tabBarStyle: {
+        //   height: 70,
+        //   backgroundColor: '#aaa',
+        // },
       }}>
       <Tab.Screen
         name={Screens.ForecastTab}
