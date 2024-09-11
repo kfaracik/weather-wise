@@ -5,7 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {CurrentWeatherResponse} from '../../api';
 import {Screens} from '@navigation/constants';
-import {HumidityImage} from '../humidity-image';
+import {WeatherImage} from '../weather-image';
 import {addFavorite, removeFavorite, isFavorite} from '../../store';
 import {ForecastStackParamList} from '../../../../navigation/navigators/ForecastNavigator';
 import {AnimatedViewBasic} from '@shared/components';
@@ -90,7 +90,7 @@ export const LocationCurrentWeather = ({
             <Text style={styles.locationNameText}>{name},</Text>
             <Text>{country}</Text>
           </View>
-          <HumidityImage humidity={humidity} />
+          <WeatherImage weather={weather} />
           <Text style={styles.temperatureText}>{Math.round(temp)}&#176;C</Text>
           <Text>{weather[0].description}</Text>
           <View style={styles.detailsContainer}>
@@ -132,7 +132,7 @@ export const LocationCurrentWeather = ({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: 'rgba(128, 128, 128, 0.5)',
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
     elevation: 0,
     shadowColor: 'transparent',
   },

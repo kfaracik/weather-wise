@@ -1,1 +1,0 @@
-export {HumidityImage} from './HumidityImage';

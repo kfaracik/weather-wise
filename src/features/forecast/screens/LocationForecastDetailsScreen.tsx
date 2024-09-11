@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, ActivityIndicator, ScrollView} from 'react-native';
 import {Text} from 'react-native-paper';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute, RouteProp} from '@react-navigation/native';
 import {fetchWeatherForecast} from '../api';
 import {
   HourlyForecast,
@@ -11,13 +11,22 @@ import {
 import {AnimatedViewBasic, ScreenContainer} from '@shared/components';
 import {WeatherForecastResponse, LocationCord} from '../api/types';
 
+type LocationForecastDetailsRouteParams = {
+  locationCord: LocationCord;
+};
+
+type LocationForecastDetailsRouteProp = RouteProp<
+  {LocationForecastDetails: LocationForecastDetailsRouteParams},
+  'LocationForecastDetails'
+>;
+
 export const LocationForecastDetailsScreen = () => {
-  const route = useRoute();
+  const route = useRoute<LocationForecastDetailsRouteProp>();
   const navigation = useNavigation();
   const [weatherData, setWeatherData] =
     useState<WeatherForecastResponse | null>(null);
   const [loading, setLoading] = useState(true);
-  const locationCord = route.params?.locationCord as LocationCord;
+  const locationCord = route.params.locationCord;
 
   useEffect(() => {
     const parent = navigation.getParent();
@@ -38,10 +47,11 @@ export const LocationForecastDetailsScreen = () => {
 
     fetchData();
 
-    return () =>
+    return () => {
       parent?.setOptions({
         tabBarStyle: undefined,
       });
+    };
   }, [navigation, locationCord]);
 
   return (

@@ -19,9 +19,9 @@ export const WeatherDetails = ({data}: WeatherDetailsProps) => (
 
 const styles = StyleSheet.create({
   container: {
+    padding: 16,
     marginTop: 16,
     marginBottom: 32,
-    padding: 16,
     borderRadius: 8,
     backgroundColor: 'rgba(255, 255, 255, 0.5)',
   },
