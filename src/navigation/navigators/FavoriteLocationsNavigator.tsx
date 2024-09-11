@@ -17,7 +17,7 @@ export const FavoriteLocationsNavigator = () => {
       <Stack.Screen
         name={Screens.FavoriteLocations}
         component={FavoriteLocationsScreen}
-        options={{title: 'Favorite Locations'}}
+        options={{title: 'Favorite Locations', headerShown: false}}
       />
       <Stack.Screen
         name={Screens.LocationForecastDetails}

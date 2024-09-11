@@ -1,1 +1,1 @@
-export {addFavorite, getFavorites, removeFavorite, type City} from './favoriteLocationsStorage';
+export {addFavorite, getFavorites, removeFavorite, isFavorite, type City} from './favoriteLocationsStorage';

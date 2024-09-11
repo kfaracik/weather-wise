@@ -20,7 +20,7 @@ export const ForecastNavigator = () => {
       <Stack.Screen
         name={Screens.LocationForecast}
         component={LocationSearchScreen}
-        options={{title: 'Forecast'}}
+        options={{title: 'Forecast', headerShown: false,}}
       />
       <Stack.Screen
         name={Screens.LocationForecastDetails}

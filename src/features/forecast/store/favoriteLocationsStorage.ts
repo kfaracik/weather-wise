@@ -1,8 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {LocationCord} from '../api';
 
-export type City = {
-  lat: number;
-  lon: number;
+export type City = LocationCord & {
   name: string;
 };
 
@@ -21,21 +20,39 @@ export const getFavorites = async (): Promise<City[]> => {
 export const addFavorite = async (city: City): Promise<void> => {
   try {
     const favorites = await getFavorites();
-    if (!favorites.some(fav => fav.name === city.name)) {
-      favorites.push(city);
-      await AsyncStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+    const exists = favorites.some(
+      fav => fav.lat === city.lat && fav.lon === city.lon,
+    );
+    if (!exists) {
+      const updatedFavorites = [...favorites, city];
+      await AsyncStorage.setItem(
+        FAVORITES_KEY,
+        JSON.stringify(updatedFavorites),
+      );
     }
   } catch (error) {
     console.error('Error adding favorite:', error);
   }
 };
 
-export const removeFavorite = async (cityName: string): Promise<void> => {
+export const removeFavorite = async (city: City): Promise<void> => {
   try {
     const favorites = await getFavorites();
-    const updatedFavorites = favorites.filter(fav => fav.name !== cityName);
+    const updatedFavorites = favorites.filter(
+      fav => fav.lat !== city.lat || fav.lon !== city.lon,
+    );
     await AsyncStorage.setItem(FAVORITES_KEY, JSON.stringify(updatedFavorites));
   } catch (error) {
     console.error('Error removing favorite:', error);
+  }
+};
+
+export const isFavorite = async (city: City): Promise<boolean> => {
+  try {
+    const favorites = await getFavorites();
+    return favorites.some(fav => fav.lat === city.lat && fav.lon === city.lon);
+  } catch (error) {
+    console.error('Error checking favorite status:', error);
+    return false;
   }
 };

@@ -44,6 +44,10 @@ export const LocationSearchScreen = () => {
   };
 
   const handleLocationSearch = async (cityName: string) => {
+    if (cityName.length === 0) {
+      return;
+    }
+
     setLoading(true);
     try {
       const data = await fetchLocation({cityName});
@@ -56,14 +60,20 @@ export const LocationSearchScreen = () => {
   };
 
   const handleTextDebounce = useCallback(
-    debounce(handleLocationSearch, 1500),
+    debounce((cityName: string) => {
+      handleLocationSearch(cityName);
+    }, 1500),
     [],
   );
 
   const onChangeText = (cityName: string) => {
-    handleTextDebounce(cityName);
     setInputTextValue(cityName);
+    handleTextDebounce(cityName);
   };
+
+  const isLoadingWithText = loading && inputTextValue?.length > 0;
+  const hasLocationsAndInputFocus = locations?.length > 0 && inputFocus;
+  const hasNoResults = inputFocus && !loading && inputTextValue?.length > 0;
 
   return (
     <ScreenContainer>
@@ -80,11 +90,11 @@ export const LocationSearchScreen = () => {
               onBlur={() => setInputFocus(false)}
               style={styles.textInput}
             />
-            {loading && inputTextValue.length > 0 ? (
+            {isLoadingWithText ? (
               <View style={styles.resultsContainer}>
                 <LoaderItem />
               </View>
-            ) : locations.length > 0 && inputFocus ? (
+            ) : hasLocationsAndInputFocus ? (
               <View style={styles.resultsContainer}>
                 {locations.map((location, id) => (
                   <View key={id}>
@@ -95,9 +105,13 @@ export const LocationSearchScreen = () => {
                         {location.name}, {location.state}, {location.country}
                       </Text>
                     </TouchableRipple>
-                    {id < locations.length - 1 && <Divider />}
+                    {id < locations?.length - 1 && <Divider />}
                   </View>
                 ))}
+              </View>
+            ) : hasNoResults ? (
+              <View style={styles.resultsContainer}>
+                <Text style={styles.noResultsText}>No results found.</Text>
               </View>
             ) : null}
           </View>
@@ -117,27 +131,6 @@ export const LocationSearchScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  backgroundImage: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  safeArea: {
-    flex: 1,
-    width: '100%',
-  },
-  container: {
-    flex: 1,
-  },
-  text: {
-    fontSize: 16,
-  },
-  emptyScreenText: {
-    fontSize: 16,
-    color: 'lightgray',
-  },
   contentContainer: {
     flex: 1,
     margin: 8,
@@ -156,12 +149,26 @@ const styles = StyleSheet.create({
   },
   resultsContainer: {
     marginTop: 4,
+    marginHorizontal: 4,
     borderRadius: 16,
     backgroundColor: 'white',
   },
   itemStyle: {
     flexDirection: 'row',
-    paddingHorizontal: 8,
-    paddingVertical: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+  },
+  noResultsText: {
+    padding: 16,
+    textAlign: 'center',
+    fontSize: 16,
+    color: 'lightgray',
+  },
+  text: {
+    fontSize: 16,
+  },
+  emptyScreenText: {
+    fontSize: 16,
+    color: 'lightgray',
   },
 });
