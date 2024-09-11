@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WeatherImage should generate snapshot 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "justifyContent": "center",
+    }
+  }
+>
+  <Image
+    source={
+      {
+        "testUri": "../../../src/shared/assets/images/partlycloudy.webp",
+      }
+    }
+    style={
+      {
+        "height": 100,
+        "resizeMode": "contain",
+        "width": 100,
+      }
+    }
+  />
+</View>
+`;
