@@ -1,15 +1,18 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Screens} from '../constants';
-import {LocationCord, LocationsForecastDetailsScreen} from '@features/forecast';
-import {FavoriteLocationsScreen} from '@features/forecast';
+import {
+  LocationCord,
+  LocationsForecastDetailsScreen,
+  FavoriteLocationsScreen,
+} from '@features/forecast';
 
 export type ForecastStackParamList = {
-  [Screens.LocationForecast]: undefined;
+  [Screens.FavoriteLocations]: undefined;
   [Screens.LocationForecastDetails]: {locationCord: LocationCord};
 };
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<ForecastStackParamList>();
 
 export const FavoriteLocationsNavigator = () => {
   return (
