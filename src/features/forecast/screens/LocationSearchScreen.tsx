@@ -117,7 +117,15 @@ export const LocationSearchScreen = () => {
           </View>
           {selectedLocationForecast ? (
             <LocationCurrentWeather
-              locationForecast={selectedLocationForecast}
+              name={selectedLocationForecast.name}
+              country={selectedLocationForecast.sys.country}
+              lon={selectedLocationForecast.coord.lon}
+              lat={selectedLocationForecast.coord.lat}
+              humidity={selectedLocationForecast.main.humidity}
+              temp={selectedLocationForecast.main.temp}
+              wind={selectedLocationForecast.wind.speed}
+              sunset={selectedLocationForecast.sys.sunset}
+              weather={selectedLocationForecast.weather}
             />
           ) : !loading ? (
             <Text style={styles.emptyScreenText}>
