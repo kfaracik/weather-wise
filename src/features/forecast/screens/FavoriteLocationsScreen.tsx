@@ -1,11 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {FlatList, StyleSheet, View, TouchableOpacity} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {City, getFavorites, removeFavorite} from '../store';
 import {Screens} from '@navigation/constants';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {type ForecastStackParamList} from '../../../navigation/navigators/ForecastNavigator';
-import {AnimatedViewBasic, ScreenContainer} from '@shared/components';
+import {
+  AnimatedViewBasic,
+  LocationPinIcon,
+  ScreenContainer,
+} from '@shared/components';
 import {Button, Text} from 'react-native-paper';
 
 type FavoritesListNavigationProp = NativeStackNavigationProp<
@@ -17,13 +21,15 @@ export const FavoriteLocationsScreen = () => {
   const [favorites, setFavorites] = useState<City[]>([]);
   const {navigate} = useNavigation<FavoritesListNavigationProp>();
 
-  useEffect(() => {
-    const fetchFavorites = async () => {
-      const storedFavorites = await getFavorites();
-      setFavorites(storedFavorites);
-    };
-    fetchFavorites();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      const fetchFavorites = async () => {
+        const storedFavorites = await getFavorites();
+        setFavorites(storedFavorites);
+      };
+      fetchFavorites();
+    }, []),
+  );
 
   const handlePress = async ({lat, lon}: City) => {
     const locationCord = {lat, lon};
@@ -46,6 +52,7 @@ export const FavoriteLocationsScreen = () => {
   const renderItem = ({item}: {item: City}) => (
     <AnimatedViewBasic style={styles.itemContainer}>
       <TouchableOpacity style={styles.item} onPress={() => handlePress(item)}>
+        <LocationPinIcon />
         <Text style={styles.text}>{item.name}</Text>
       </TouchableOpacity>
       <Button mode="text" onPress={() => handleRemove(item)}>
@@ -94,6 +101,8 @@ const styles = StyleSheet.create({
   },
   item: {
     flex: 1,
+    flexDirection: 'row',
+    gap: 8,
     padding: 16,
     borderRadius: 8,
   },

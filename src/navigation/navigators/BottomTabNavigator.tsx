@@ -3,6 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Screens} from '../constants';
 import {ForecastNavigator} from './ForecastNavigator';
 import {FavoriteLocationsNavigator} from './FavoriteLocationsNavigator';
+import {HeartIcon, WeatherIcon} from '@shared/components';
 
 const Tab = createBottomTabNavigator();
 
@@ -11,28 +12,28 @@ export const BottomTabNavigator = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        // tabBarActiveTintColor: 'black',
-        // tabBarInactiveTintColor: 'gray',
-        // tabBarLabelStyle: {
-        //   fontSize: 16,
-        //   fontWeight: 'bold',
-        // },
-        // tabBarStyle: {
-        //   height: 70,
-        //   backgroundColor: '#aaa',
-        // },
+        tabBarActiveTintColor: 'black',
+        tabBarInactiveTintColor: 'gray',
       }}>
       <Tab.Screen
         name={Screens.ForecastTab}
         component={ForecastNavigator}
         options={{
           title: 'Forecast',
+          tabBarIcon: ({color}) => {
+            return <WeatherIcon color={color} />;
+          },
         }}
       />
       <Tab.Screen
         name={Screens.FavoriteTab}
         component={FavoriteLocationsNavigator}
-        options={{title: 'Favorite'}}
+        options={{
+          title: 'Favorite',
+          tabBarIcon: ({color}) => {
+            return <HeartIcon color={color} />;
+          },
+        }}
       />
     </Tab.Navigator>
   );

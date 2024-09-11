@@ -14,7 +14,7 @@ import {
   type Location,
   type CurrentWeatherResponse,
 } from '../api';
-import {ScreenContainer} from '@shared/components';
+import {LocationPinIcon, ScreenContainer} from '@shared/components';
 
 export const LocationSearchScreen = () => {
   const [locations, setLocations] = useState<Location[]>([]);
@@ -100,9 +100,12 @@ export const LocationSearchScreen = () => {
                     <TouchableRipple
                       style={styles.itemStyle}
                       onPress={() => handleLocation(location)}>
-                      <Text style={styles.text}>
-                        {location.name}, {location.state}, {location.country}
-                      </Text>
+                      <>
+                        <LocationPinIcon size={20} color={'lightgray'} />
+                        <Text style={styles.text}>
+                          {location.name}, {location.state}, {location.country}
+                        </Text>
+                      </>
                     </TouchableRipple>
                     {id < locations?.length - 1 && <Divider />}
                   </View>
@@ -164,6 +167,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: 16,
     paddingVertical: 16,
+    gap: 8,
   },
   noResultsText: {
     padding: 16,
