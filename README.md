@@ -5,7 +5,7 @@
 - Fetches weather data (temperature, weather description) from OpenWeather API.
 - Displays detailed weather information on a separate screen.
 - Option to save a favorite city for quick access.
-- State persistence using Zustand for storing favorite cities.
+- State persistence for storing favorite cities.
 - Unit tests using Jest.
 
 ## Technologies:
