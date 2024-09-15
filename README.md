@@ -1,5 +1,13 @@
 # weather-wise
 
+![Demo aplikacji](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGppNHQ4ejdhdXdsb3Fra3NoNmt2ZWtqMTRsamFzaXBzaWwyZHdyMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/8kC8lRkm6yQ9sHGlfG/giphy.gif)
+
+## This GIF demonstrates the key functionality of the Weather-Wise app:
+City Search: Users can input a city name to fetch its weather data.
+Weather Display: The current temperature and weather description are shown.
+Detailed View: Users can view detailed weather info on a separate screen.
+Favorite Cities: The option to save a city as a favorite for quick access.
+
 ## Features:
 - City search functionality.
 - Fetches weather data (temperature, weather description) from OpenWeather API.
