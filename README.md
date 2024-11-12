@@ -1,4 +1,6 @@
-# weather-wise
+# Weather-Wise App
+Weather-Wise is a React Native application that lets users search for weather information by city, view detailed weather data, and save favorite cities for quick access. Designed with a focus on simplicity and functionality, Weather-Wise provides key weather insights and easy navigation.
+
 
 ![Demo aplikacji](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGppNHQ4ejdhdXdsb3Fra3NoNmt2ZWtqMTRsamFzaXBzaWwyZHdyMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/8kC8lRkm6yQ9sHGlfG/giphy.gif)
 
@@ -44,3 +46,6 @@ npm run android
 # using npm
 npm run ios
 ```
+
+## API:
+Weather-Wise utilizes the OpenWeather API to fetch up-to-date weather data.
